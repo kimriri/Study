@@ -36,3 +36,19 @@ Java_com_example_androidaosp_aospnative_getLine(JNIEnv *env, jobject thiz, jstri
 
 
 }
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_example_androidaosp_JNICallBackMethod_PrinttoString(JNIEnv *env, jobject obj) {
+    jclass cls = env ->GetObjectClass(obj);
+
+    jmethodID mid = env ->GetMethodID(cls,"toString","()Ljava/lang/String;");
+
+    jstring s = (jstring) env ->CallObjectMethod(obj,mid);
+
+    const char *buf = env ->GetStringUTFChars(s,0);
+
+    __android_log_print(ANDROID_LOG_INFO,"JNICallBackMethod_PrinttoString","%s",buf);
+
+    env ->ReleaseStringUTFChars(s,buf);
+    return s;
+}
