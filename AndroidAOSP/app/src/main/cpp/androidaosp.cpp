@@ -52,3 +52,27 @@ Java_com_example_androidaosp_JNICallBackMethod_PrinttoString(JNIEnv *env, jobjec
     env ->ReleaseStringUTFChars(s,buf);
     return s;
 }
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_example_androidaosp_SignaturnActivity_fun_1signaturn__(JNIEnv *env, jobject clazz) {
+    const char *buf = "시그네이처";
+    return env->NewStringUTF(buf);
+}
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_com_example_androidaosp_SignaturnActivity_fun_1signaturn__Ljava_lang_String_2(JNIEnv *env,jobject clazz,jstring s) {
+
+    const char *str = env->GetStringUTFChars(s, NULL);
+    if(str == NULL)
+        return NULL;
+    env ->ReleaseStringUTFChars(s,str);
+    return env -> NewStringUTF(str);
+
+}
+
+extern "C"
+JNIEXPORT jstring JNICALL
+Java_com_example_androidaosp_SignaturnActivity_fun_1signaturn__II(JNIEnv *env, jobject thiz, jint i,
+                                                                  jint j) {
+    std::string result = "JNU에서 연산한 값 : " + std::to_string(i + j);
+    return env->NewStringUTF( result.c_str());
+}
